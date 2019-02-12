@@ -18,7 +18,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
     keywords='api graphql subscription',
-    packages=find_packages(include=["src*"]),
+    packages=find_packages(include=["gql_async*"]),
     install_requires=[
     ],
     tests_require=['pytest>=2.7.2', 'mock'],
