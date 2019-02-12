@@ -1,0 +1,2 @@
+class GQLClientErrorBase(Exception):
+    pass

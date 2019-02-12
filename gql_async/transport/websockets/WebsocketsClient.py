@@ -10,7 +10,7 @@ class WebsocketsClient:
         self.__sockets = []
 
     def __enter__(self):
-        pass
+        return self
 
     def __exit__(self, exc_type, exc_value, traceback):
 

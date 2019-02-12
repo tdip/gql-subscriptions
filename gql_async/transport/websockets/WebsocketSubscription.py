@@ -1,6 +1,11 @@
+from graphql.execution import ExecutionResult
+import json
+import websockets
+
 from .Constants import Keys
 from .Events import Events
 from .Message import Message
+from .Protocol import protocol
 
 class WebsocketSubscription:
 
@@ -22,23 +27,34 @@ class WebsocketSubscription:
         if self.__socket:
             return
 
-        self.__socket = websockets.connect(uri, create_protocol=protocol)
+        self.__socket = await websockets.connect(self.__url, create_protocol=protocol)
         await self.__socket.send(Message.CONNECTION_INIT)
+        print(Message.CONNECTION_INIT)
 
     async def subscribe(self):
 
-        self.__init_socket()
+        await self.__init_socket()
 
         async for _message in self.__socket:
 
             message = json.loads(_message)
+            type = message[Keys.TYPE] 
 
-            if message[Keys.TYPE] == Events.CONNECTION_ACK:
-                await websocket.send(
+            if type == Events.CONNECTION_ACK:
+                await self.__socket.send(
                     Message.create_query(
                         self.__id,
                         self.__query,
                         self.__variables,
                         self.__operationName))
 
+            if type == Events.DATA:
+
+                payload = message.get(Keys.PAYLOAD)
+                data = payload.get(Keys.DATA)
+                errors = payload.get(Keys.ERRORS)
+
+                yield ExecutionResult(data=data, errors=errors)
+
+            print(_message)
             print("message:", message)

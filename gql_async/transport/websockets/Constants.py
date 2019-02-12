@@ -1,11 +1,13 @@
 class Keys:
+    DATA = 'data'
+    ERRORS = 'errors'
     ID = 'id'
-    TYPE = 'type'
+    OPERATION_NAME = 'operationName'
     PAYLOAD = 'payload'
     QUERY = 'query'
+    TYPE = 'type'
     VARIABLES = 'variables'
-    OPERATION_NAME = 'operationName'
 
 class Types:
-    CONNECTION_ACK = 'connection_ack'
+    CONNECTION_INIT = 'connection_init'
     START = 'start'

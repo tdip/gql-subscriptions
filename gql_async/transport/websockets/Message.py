@@ -5,11 +5,11 @@ from .Constants import Keys, Types
 class Message:
 
     CONNECTION_INIT = json.dumps({
-        Keys.TYPE: Types.CONNECTION_ACK,
+        Keys.TYPE: Types.CONNECTION_INIT,
         Keys.PAYLOAD: {}
     })
 
-    def create_query(id, query, variables=None, operationName=None):
+    def create_query_message(id, query, variables=None, operationName=None):
 
         payload = {
             Keys.QUERY: query
@@ -28,3 +28,6 @@ class Message:
             result[Keys.OPERATION_NAME] = operationName
 
         return result
+
+    def create_query(id, query, variables, operationName):
+        return json.dumps(Message.create_query_message(id, query, variables, operationName))
