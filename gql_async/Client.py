@@ -18,7 +18,7 @@ class Client:
         if self.__websockets:
             self.__websockets.__exit__(exc_type, exc_value, traceback)
 
-    def subscribe(self, query, variables=None):
+    def subscribe(self, query, variables=None, parser=None):
         '''
         Subscribe to the resulsts of executing the argument query.
         :param query: The GraphQL query to execute
@@ -27,6 +27,10 @@ class Client:
         :param variables: The GraphQL variables binding to the given query
         :type variables: dict
 
+        :param parser: The parser that should be used to parse the payload 
+        from the gql endpoint
+        :type parser: function
+
         :return An async iterator that yields the values from the endpoint
         '''
         if not self.__websockets:
@@ -34,6 +38,7 @@ class Client:
 
         return self.__websockets.subscription(
             query,
-            variables=variables)
+            variables=variables,
+            parser=parser)
 
     

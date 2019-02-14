@@ -17,14 +17,14 @@ class WebsocketsClient:
         for socket in self.__sockets:
             self.socket.__exit__(exc_type, exc_value, traceback)
 
-    def subscription(self, query, variables=None, operationName=None):
-
+    def subscription(self, query, variables=None, operationName=None, parser=None):
         self.__id = self.__id + 1
         socket = WebsocketSubscription(
             self.__id,
             self.__url,
             query,
             variables,
-            operationName)
+            operationName,
+            parser)
 
         return socket.subscribe()

@@ -11,6 +11,9 @@ class Message:
 
     def create_query_message(id, query, variables=None, operationName=None):
 
+        if(isinstance(query, bytes)):
+            query = query.decode('utf-8')
+
         payload = {
             Keys.QUERY: query
         }
