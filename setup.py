@@ -20,6 +20,8 @@ setup(
     keywords='api graphql subscription',
     packages=find_packages(include=["gql_async*"]),
     install_requires=[
+        'graphql-core>=2.1',
+        'websockets>=7.0'
     ],
     tests_require=['pytest>=2.7.2', 'mock'],
 )
