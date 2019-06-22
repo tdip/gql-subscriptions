@@ -18,7 +18,7 @@ class Client:
         if self.__websockets:
             self.__websockets.__exit__(exc_type, exc_value, traceback)
 
-    def subscribe(self, query, variables=None, parser=None):
+    def subscribe(self, query, variables=None, parser=None, reconnect=True):
         '''
         Subscribe to the resulsts of executing the argument query.
         :param query: The GraphQL query to execute
@@ -39,6 +39,7 @@ class Client:
         return self.__websockets.subscription(
             query,
             variables=variables,
-            parser=parser)
+            parser=parser,
+            reconnect=reconnect)
 
     
